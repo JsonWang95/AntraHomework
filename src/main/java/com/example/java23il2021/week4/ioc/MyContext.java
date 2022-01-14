@@ -39,24 +39,24 @@ public class MyContext {
         init();
         System.out.println(objMap);
     }
-//    public static Object getInstance(String name) {
-////        if(name.equals("EmployeeService1")) {
-////            return EmployeeService1.getInstance();
-////        } else if(name.equals("EmployeeService2")) {
-////            return EmployeeService2.getInstance();
-////        }
-//        return objMap.get(name);
-//    }
+
 }
-//1. scan file
-//2. inject / autowired
 
 class TmpService {
-    @Autowired
-    private EmployeeService1 ss1;
+
+    private final EmployeeService1 ss1;
+    private final EmployeeService2 ss2;
 
     @Autowired
-    private EmployeeService2 ss2;
+    public TmpService(EmployeeService1 ss1, EmployeeService2 ss2) {
+        this.ss1 = ss1;
+        this.ss2 = ss2;
+    }
+
+    public TmpService() {
+        ss1 = null;
+        ss2 = null;
+    }
 
     @Override
     public String toString() {

@@ -2,8 +2,13 @@ package com.example.java23il2021.week4.aop;
 
 import com.example.java23il2021.week4.aop.annotation.After;
 import com.example.java23il2021.week4.aop.annotation.Before;
+import com.example.java23il2021.week4.aop.annotation.AfterThrow;
+import com.example.java23il2021.week4.aop.annotation.AfterReturn;
 import com.example.java23il2021.week4.aop.interceptor.AfterMethodInterceptor;
 import com.example.java23il2021.week4.aop.interceptor.BeforeMethodInterceptor;
+import com.example.java23il2021.week4.aop.interceptor.AfterThrowMethodInterceptor;
+import com.example.java23il2021.week4.aop.interceptor.AfterReturnMethodInterceptor;
+import com.example.java23il2021.week4.aop.MethodInterceptor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationHandler;
@@ -30,6 +35,10 @@ public class JdkReflectiveInvocationHandler implements InvocationHandler {
                     methodInterceptorList.add(new BeforeMethodInterceptor(aspectInstance, aspectMethod));
                 } else if(annotation.annotationType() == After.class) {
                     methodInterceptorList.add(new AfterMethodInterceptor(aspectInstance, aspectMethod));
+                } else if(annotation.annotationType() == AfterReturn.class) {
+                    methodInterceptorList.add(new AfterReturnMethodInterceptor(aspectInstance, aspectMethod));
+                } else if(annotation.annotationType() == AfterThrow.class) {
+                    methodInterceptorList.add(new AfterThrowMethodInterceptor(aspectInstance, aspectMethod));
                 }
             }
         }
@@ -38,7 +47,6 @@ public class JdkReflectiveInvocationHandler implements InvocationHandler {
                 realInstance,
                 method
         );
-
         return proxyMethodInvocation.proceed();
     }
 }

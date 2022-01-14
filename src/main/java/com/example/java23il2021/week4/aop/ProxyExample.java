@@ -2,6 +2,8 @@ package com.example.java23il2021.week4.aop;
 
 import com.example.java23il2021.week4.aop.annotation.After;
 import com.example.java23il2021.week4.aop.annotation.Before;
+import com.example.java23il2021.week4.aop.annotation.AfterReturn;
+import com.example.java23il2021.week4.aop.annotation.AfterThrow;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -51,24 +53,19 @@ class CalculatorImpl1 implements Calculator {
 }
 
 class CalculatorAspect {
+    @Before
+    public void beforeLogic() {
+        System.out.println("this is before");
+    }
 
     @After
-    public void afterLogic1() {
-        System.out.println("this is after -- number 1");
+    public void afterLogic() {
+        System.out.println("this is after");
     }
 
-    @After
-    public void afterLogic2() {
-        System.out.println("this is after -- number 2");
-    }
+    @AfterReturn
+    public void afterReturnLogic() { System.out.println("this is after return");}
 
-    @Before
-    public void beforeLogic1() {
-        System.out.println("this is before -- number 1");
-    }
-
-    @Before
-    public void beforeLogic2() {
-        System.out.println("this is before -- number 2");
-    }
+    @AfterThrow
+    public void afterThrowLogic() { System.out.println("this is after throw");}
 }
